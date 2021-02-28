@@ -1,16 +1,18 @@
 package entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 
     private int id;
     private String name;
     private String lastName;
-    private String PESEL;
+    private String pesel;
     private Sex sex;
     private Classes classes;
     private String address;
@@ -20,8 +22,8 @@ public class Student {
     private int payment;
     private int debt;
 
-    //String name, String lastName, String PESEL, char sex, String classes, String address, String phoneNumber, String eMail, int cost, int payment, int debt
-    //name, lastName, PESEL, sex, classes, address, phoneNumber, eMail, cost, payment, debt
+    //String name, String lastName, String pesel, Sex sex, Classes classes, String address, String phoneNumber, String eMail, int cost, int payment, int debt
+    //name, lastName, pesel, sex, classes, address, phoneNumber, eMail, cost, payment, debt
 
     public int getDebt() {
         return cost - payment;

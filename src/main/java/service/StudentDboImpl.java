@@ -1,13 +1,12 @@
 package service;
 
+import entity.Classes;
 import entity.Sex;
 import entity.Student;
 import interfaces.StudentDbo;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StudentDboImpl implements StudentDbo {
@@ -15,8 +14,8 @@ public class StudentDboImpl implements StudentDbo {
     private final static StudentDbo studentDbo = new StudentDboImpl();
     private final String databaseName = "management";
     private final String tableName = "students";
-    private final String user = "root";
-    private final String password = "Qwerty33!";
+    private final String databaseUser = "root";
+    private final String databasePassword = "Qwerty33!";
     private Connection connection;
 
     private StudentDboImpl() {
@@ -29,33 +28,32 @@ public class StudentDboImpl implements StudentDbo {
 
     private void initialization() {
         try {
-            connection = DriverManager.getConnection(databaseName, user, password);
+            connection = DriverManager.getConnection(databaseName, databaseUser, databasePassword);
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
     }
 
-
     @Override
     public void addStudent(Student student) {
-        PreparedStatement statement;
-        String insertQuery = "insert into " + tableName + " (name, lastName, PESEL, sex, classes, address," +
-                " phoneNumber, eMail, cost, payment, debt)" + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement;
+        String insertQuery = "INSERT INTO " + tableName + " (name, lastName, PESEL, sex, classes, address," +
+                " phoneNumber, eMail, cost, payment, debt)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
-            statement = connection.prepareStatement(insertQuery);
-            statement.setString(1, student.getName());
-            statement.setString(2, student.getLastName());
-            statement.setString(3, student.getPESEL());
-            statement.setString(4, student.getSex().name());
-            statement.setString(5, student.getClasses().name());
-            statement.setString(6, student.getAddress());
-            statement.setString(7, student.getPhoneNumber());
-            statement.setString(8, student.getEMail());
-            statement.setInt(9, student.getCost());
-            statement.setInt(10, student.getPayment());
-            statement.setInt(11, student.getDebt());
-            statement.execute();
-            statement.close();
+            preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement.setString(1, student.getName());
+            preparedStatement.setString(2, student.getLastName());
+            preparedStatement.setString(3, student.getPesel());
+            preparedStatement.setString(4, student.getSex().name());
+            preparedStatement.setString(5, student.getClasses().name());
+            preparedStatement.setString(6, student.getAddress());
+            preparedStatement.setString(7, student.getPhoneNumber());
+            preparedStatement.setString(8, student.getEMail());
+            preparedStatement.setInt(9, student.getCost());
+            preparedStatement.setInt(10, student.getPayment());
+            preparedStatement.setInt(11, student.getDebt());
+            preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -63,21 +61,81 @@ public class StudentDboImpl implements StudentDbo {
 
     @Override
     public void removeStudentById(int studentId) {
-
+        PreparedStatement preparedStatement;
+        String deleteQuery = "DELETE FROM " + databaseName + " WHERE id=?";
+        try {
+            preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
     }
 
     @Override
     public void removeStudentByPesel(String studentPesel) {
-
+        PreparedStatement preparedStatement;
+        String deleteQuery = "DELETE FROM " + databaseName + " WHERE pesel=?";
+        try {
+            preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.setString(1, studentPesel);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return null;
+        List<Student> studentList = new LinkedList<>();
+        Statement statement;
+        String selectQuery = "SELECT * FROM " + tableName;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String lastName = resultSet.getString("lastName");
+                String pesel = resultSet.getString("pesel");
+                Sex sex = Sex.valueOf(resultSet.getString("sex"));
+                Classes classes = Classes.valueOf(resultSet.getString("classes"));
+                String address = resultSet.getString("address");
+                String phoneNumber = resultSet.getString("phoneNumber");
+                String eMail = resultSet.getString("eMail");
+                int cost = resultSet.getInt("cost");
+                int payment = resultSet.getInt("payment");
+                int debt = resultSet.getInt("debt");
+                Student student = new Student(id, name, lastName, pesel, sex, classes,
+                        address, phoneNumber, eMail, cost, payment, debt);
+                studentList.add(student);
+            }
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return studentList;
     }
 
     @Override
-    public void modifyStudent(Student student) {
-
+    public void modifyStudentById(Student student) {
+        PreparedStatement preparedStatement;
+        String updateQuery = "UPDATE " + tableName + "SET lastName =?, classes =?, address =?, phoneNumber =?, eMail =?" +
+                "WHERE id=?";
+        try {
+            preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, student.getName());
+            preparedStatement.setString(2, student.getClasses().name());
+            preparedStatement.setString(3, student.getAddress());
+            preparedStatement.setString(4, student.getPhoneNumber());
+            preparedStatement.setString(5, student.getEMail());
+            preparedStatement.setInt(6, student.getId());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
     }
 }
