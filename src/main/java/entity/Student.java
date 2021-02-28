@@ -1,5 +1,7 @@
 package entity;
 
+import entity.enums.Classes;
+import entity.enums.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package service;
 
-import entity.Classes;
-import entity.Sex;
+import entity.enums.Classes;
+import entity.enums.Sex;
 import entity.Student;
 import interfaces.StudentDbo;
 
