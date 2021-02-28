@@ -6,18 +6,18 @@ import java.util.List;
 
 public interface StudentService {
 
-    void addStudent();
+    boolean addStudent(Student student);
 
     void removeStudentById(int studentId);
 
-    List<Student> getAllStudent();
+    void removeStudentByPesel(String studentPesel);
+
+    List<Student> getAllStudents();
+
+    Student getStudentByPesel(String studentPesel);
 
     int getStudentCount();
 
-    Student getStudentByName(String studentName);
-
-    Student getStudentByLastName(String studentLastName);
-
-    int getDebt();
+    boolean isStudentWithPeselExist(String studentPesel);
 
 }
