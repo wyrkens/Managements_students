@@ -15,6 +15,6 @@ public interface StudentDbo {
 
     List<Student> getAllStudents();
 
-    void modifyStudentById(Student student);
+    void modifyStudent(Student student);
 
 }

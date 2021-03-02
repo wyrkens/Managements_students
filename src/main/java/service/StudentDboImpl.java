@@ -120,7 +120,7 @@ public class StudentDboImpl implements StudentDbo {
     }
 
     @Override
-    public void modifyStudentById(Student student) {
+    public void modifyStudent(Student student) {
         PreparedStatement preparedStatement;
         String updateQuery = "UPDATE " + tableName + "SET lastName =?, classes =?, address =?, phoneNumber =?, eMail =?" +
                 "WHERE id=?";

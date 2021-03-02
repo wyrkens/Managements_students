@@ -1,12 +1,13 @@
 package interfaces;
 
 import entity.Accountant;
+import entity.Student;
 
 import java.util.List;
 
-public interface AccountantService {
+public interface AccountantDbo {
 
-    void addAccountant();
+    void addAccountant(Accountant accountant);
 
     void removeAccountantById(int accountantId);
 
@@ -14,10 +15,5 @@ public interface AccountantService {
 
     List<Accountant> getAllAccountants();
 
-    int getAccountantCount();
-
-    Accountant getAccountantByLogin(String accountantLogin);
-
-    boolean isCorrectLoginAndPassword(String login, String password);
-
+    void modifyAccountant(Accountant accountant);
 }

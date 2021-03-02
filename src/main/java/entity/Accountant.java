@@ -1,10 +1,12 @@
 package entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Accountant {
 
     private int id;
@@ -14,4 +16,6 @@ public class Accountant {
     private String password;
     private String eMail;
 
+    //int id, String name, String lastName, String login, String password, String eMail
+    //id, name, lastName, login, password, eMail
 }
