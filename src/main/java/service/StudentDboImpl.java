@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StudentDboImpl implements StudentDbo {
 
-    private final static StudentDbo studentDbo = new StudentDboImpl();
+    private final static StudentDbo instance = new StudentDboImpl();
     private final String databaseName = "management";
     private final String tableName = "students";
     private final String databaseUser = "root";
@@ -22,8 +22,8 @@ public class StudentDboImpl implements StudentDbo {
         initialization();
     }
 
-    public static StudentDbo getStudentDbo() {
-        return StudentDboImpl.studentDbo;
+    public static StudentDbo getInstance() {
+        return StudentDboImpl.instance;
     }
 
     private void initialization() {
