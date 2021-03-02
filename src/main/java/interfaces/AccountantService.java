@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AccountantService {
 
-    void addAccountant();
+    boolean addAccountant(Accountant accountant);
 
     void removeAccountantById(int accountantId);
 
@@ -18,6 +18,6 @@ public interface AccountantService {
 
     Accountant getAccountantByLogin(String accountantLogin);
 
-    boolean isCorrectLoginAndPassword(String login, String password);
+    boolean isValidLoginAndPassword(String login, String password);
 
 }
