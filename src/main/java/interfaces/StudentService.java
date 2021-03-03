@@ -1,12 +1,16 @@
 package interfaces;
 
 import entity.Student;
+import exception.StudentExistException;
+import exception.StudentLastNameIsNullException;
+import exception.StudentNameIsNullException;
+import exception.StudentPeselIsNullException;
 
 import java.util.List;
 
 public interface StudentService {
 
-    boolean addStudent(Student student);
+    boolean addStudent(Student student) throws StudentExistException, StudentNameIsNullException, StudentLastNameIsNullException, StudentPeselIsNullException;
 
     void removeStudentById(int studentId);
 

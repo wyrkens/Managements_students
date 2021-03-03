@@ -1,6 +1,9 @@
 package validator;
 
 import entity.Student;
+import exception.StudentLastNameIsNullException;
+import exception.StudentNameIsNullException;
+import exception.StudentPeselIsNullException;
 
 public class StudentValidator {
 
@@ -17,15 +20,16 @@ public class StudentValidator {
         return instance;
     }
 
-    public boolean isValidate(Student student) {
+    public boolean isValidate(Student student) throws StudentNameIsNullException, StudentLastNameIsNullException,
+            StudentPeselIsNullException {
         if (isNameEmpty(student.getName())) {
-            throw new studentNameIsNullException("Imię jest puste.");
+            throw new StudentNameIsNullException("Imię jest puste.");
         }
         if (isLastNameEmpty(student.getLastName())) {
-            throw new studentLastNameIsNullException("Nazwisko jest puste.");
+            throw new StudentLastNameIsNullException("Nazwisko jest puste.");
         }
         if (isValidPesel(student.getPesel())) {
-            throw new studentPeselIsNullException("Pesel musi mieć 11 znaków.");
+            throw new StudentPeselIsNullException("Pesel musi mieć 11 znaków.");
         }
         return true;
     }

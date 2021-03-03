@@ -1,6 +1,10 @@
 package validator;
 
 import entity.Accountant;
+import exception.AccountantLoginToShortException;
+import exception.AccountantPasswordToShortException;
+import exception.StudentLastNameIsNullException;
+import exception.StudentNameIsNullException;
 
 public class AccountantValidator {
 
@@ -18,18 +22,19 @@ public class AccountantValidator {
         return instance;
     }
 
-    public boolean isValidate(Accountant accountant) {
+    public boolean isValidate(Accountant accountant) throws AccountantLoginToShortException,
+            AccountantPasswordToShortException, StudentNameIsNullException, StudentLastNameIsNullException {
         if (isLoginEnough(accountant.getLogin())) {
-            throw new accountantLoginToShortException("Login jest za krótki.");
+            throw new AccountantLoginToShortException("Login jest za krótki.");
         }
         if (isPasswordEnough(accountant.getPassword())) {
-            throw new accountantPasswordToShortException("Hasło jest za krótke.");
+            throw new AccountantPasswordToShortException("Hasło jest za krótke.");
         }
         if (isNameEmpty(accountant.getName())) {
-            throw new accountantNameIsNullException("Imię jest puste.");
+            throw new StudentNameIsNullException("Imię jest puste.");
         }
         if (isLastNameEmpty(accountant.getLastName())) {
-            throw new accountantLastNameIsNullException("Nazwisko jest puste.");
+            throw new StudentLastNameIsNullException("Nazwisko jest puste.");
         }
         return true;
     }

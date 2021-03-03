@@ -1,6 +1,10 @@
 package service;
 
 import entity.Student;
+import exception.StudentExistException;
+import exception.StudentLastNameIsNullException;
+import exception.StudentNameIsNullException;
+import exception.StudentPeselIsNullException;
 import interfaces.StudentDbo;
 import interfaces.StudentService;
 import validator.StudentValidator;
@@ -24,7 +28,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean addStudent(Student student) {
+    public boolean addStudent(Student student) throws StudentExistException, StudentNameIsNullException,
+            StudentLastNameIsNullException, StudentPeselIsNullException {
         if (isStudentWithPeselExist(student.getPesel())) {
             throw new StudentExistException();
         }
@@ -68,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean isStudentWithPeselExist(String studentPesel) {
-        Student student = null;
+        Student student;
         student = getStudentByPesel(studentPesel);
         return student != null;
     }

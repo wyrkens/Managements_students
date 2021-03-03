@@ -1,6 +1,7 @@
 package service;
 
 import entity.Accountant;
+import exception.*;
 import interfaces.AccountantDbo;
 import interfaces.AccountantService;
 import validator.AccountantValidator;
@@ -24,7 +25,9 @@ public class AccountantServiceImpl implements AccountantService {
     }
 
     @Override
-    public boolean addAccountant(Accountant accountant) {
+    public boolean addAccountant(Accountant accountant) throws AccountantLoginExistException,
+            AccountantLoginToShortException, AccountantPasswordToShortException,
+            StudentNameIsNullException, StudentLastNameIsNullException {
         if (isLoginExist(accountant.getLogin())) {
             throw new AccountantLoginExistException();
         }
