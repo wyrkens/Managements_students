@@ -1,7 +1,6 @@
 package interfaces;
 
 import entity.Accountant;
-import entity.Student;
 
 import java.util.List;
 

@@ -5,5 +5,6 @@ public enum Classes {
     PHYSICS,
     CHEMISTRY,
     BIOLOGY,
-    ART
+    ART;
+
 }

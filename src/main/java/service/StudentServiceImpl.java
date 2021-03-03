@@ -3,6 +3,7 @@ package service;
 import entity.Student;
 import interfaces.StudentDbo;
 import interfaces.StudentService;
+import validator.StudentValidator;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class StudentServiceImpl implements StudentService {
 
     private static StudentServiceImpl instance = null;
     private StudentDbo studentDbo = StudentDboImpl.getInstance();
+    private StudentValidator studentValidator = StudentValidator.getInstance();
 
     private StudentServiceImpl() {
     }

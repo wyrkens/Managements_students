@@ -3,6 +3,7 @@ package service;
 import entity.Accountant;
 import interfaces.AccountantDbo;
 import interfaces.AccountantService;
+import validator.AccountantValidator;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class AccountantServiceImpl implements AccountantService {
 
     private static AccountantServiceImpl instance = null;
     private AccountantDbo accountantDbo = AccountantDboImpl.getInstance();
+    private AccountantValidator accountantValidator = AccountantValidator.getInstance();
 
     private AccountantServiceImpl() {
     }
