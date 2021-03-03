@@ -19,7 +19,7 @@ public class AccountantServiceImpl implements AccountantService {
 
     public static AccountantServiceImpl getInstance() {
         if (instance == null) {
-            return new AccountantServiceImpl();
+            instance = new AccountantServiceImpl();
         }
         return instance;
     }

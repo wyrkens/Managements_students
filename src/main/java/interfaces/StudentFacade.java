@@ -8,7 +8,7 @@ public interface StudentFacade {
 
     String createStudent(Student student);
 
-    String removeStudent(String studentPesel);
+    String removeStudentByPesel(String studentPesel);
 
-    List<Student> getAllStudents();
+    String removeStudentById(String studentId);
 }

@@ -15,7 +15,7 @@ public class StudentValidator {
 
     public static StudentValidator getInstance() {
         if (instance == null) {
-            return new StudentValidator();
+            instance = new StudentValidator();
         }
         return instance;
     }

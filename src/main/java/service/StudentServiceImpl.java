@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
     public static StudentServiceImpl getInstance() {
         if (instance == null) {
-            return new StudentServiceImpl();
+            instance = new StudentServiceImpl();
         }
         return instance;
     }

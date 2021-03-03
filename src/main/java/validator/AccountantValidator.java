@@ -17,7 +17,7 @@ public class AccountantValidator {
 
     public static AccountantValidator getInstance() {
         if (instance == null) {
-            return new AccountantValidator();
+            instance = new AccountantValidator();
         }
         return instance;
     }
