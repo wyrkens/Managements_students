@@ -16,6 +16,14 @@ public class Accountant {
     private String password;
     private String eMail;
 
+    public Accountant(String name, String lastName, String login, String password, String eMail) {
+        this.name = name;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.eMail = eMail;
+    }
+
     //int id, String name, String lastName, String login, String password, String eMail
     //id, name, lastName, login, password, eMail
 }

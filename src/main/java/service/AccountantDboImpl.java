@@ -12,7 +12,7 @@ public class AccountantDboImpl implements AccountantDbo {
 
     private final static AccountantDbo instance = new AccountantDboImpl();
     private final String databaseName = "management";
-    private final String tableName = "accountantDbo";
+    private final String tableName = "accountant";
     private final String databaseUser = "root";
     private final String databasePassword = "Qwerty33!";
     private Connection connection;
@@ -27,17 +27,38 @@ public class AccountantDboImpl implements AccountantDbo {
 
     private void initialization() {
         try {
-            connection = DriverManager.getConnection(databaseName, databaseUser, databasePassword);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, databaseUser, databasePassword);
+            createTable();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+    }
+
+    private void createTable() {
+        Statement statement;
+        String createTable = "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
+                "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
+                "name VARCHAR(255) NOT NULL," +
+                "lastName VARCHAR(255) NOT NULL, " +
+                "login VARCHAR(255) NOT NULL, " +
+                "password VARCHAR(255) NOT NULL, " +
+                "eMail VARCHAR(255)," +
+                "PRIMARY KEY (id)" +
+                ");";
+        try {
+            statement = connection.createStatement();
+            statement.execute(createTable);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
     }
 
     @Override
     public void addAccountant(Accountant accountant) {
         PreparedStatement preparedStatement;
         String insertQuery = "INSERT INTO " + tableName + " (name, lastName, login, password, eMail) " +
-                "VALUES (?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?);";
         try {
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, accountant.getName());
@@ -55,7 +76,7 @@ public class AccountantDboImpl implements AccountantDbo {
     @Override
     public void removeAccountantById(int accountantId) {
         PreparedStatement preparedStatement = null;
-        String deleteQuery = "DELETE FROM " + tableName + " WHERE id=?";
+        String deleteQuery = "DELETE FROM " + tableName + " WHERE id=?;";
         try {
             connection.prepareStatement(deleteQuery);
             preparedStatement.setInt(1, accountantId);
@@ -69,7 +90,7 @@ public class AccountantDboImpl implements AccountantDbo {
     @Override
     public void removeAccountantByLogin(String accountantLogin) {
         PreparedStatement preparedStatement = null;
-        String deleteQuery = "DELETE FROM " + tableName + " WHERE id=?";
+        String deleteQuery = "DELETE FROM " + tableName + " WHERE id=?;";
         try {
             connection.prepareStatement(deleteQuery);
             preparedStatement.setString(1, accountantLogin);
@@ -84,7 +105,7 @@ public class AccountantDboImpl implements AccountantDbo {
     public List<Accountant> getAllAccountants() {
         List<Accountant> accountantList = new LinkedList<>();
         Statement statement;
-        String selectQuery = "SELECT * FROM " + databaseName;
+        String selectQuery = "SELECT * FROM " + tableName + ";";
 
         try {
             statement = connection.createStatement();

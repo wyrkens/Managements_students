@@ -28,16 +28,43 @@ public class StudentDboImpl implements StudentDbo {
 
     private void initialization() {
         try {
-            connection = DriverManager.getConnection(databaseName, databaseUser, databasePassword);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, databaseUser, databasePassword);
+            createTable();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
     }
 
+    private void createTable() {
+        Statement statement;
+        String createTable = "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
+                "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
+                "name VARCHAR(255) NOT NULL," +
+                "lastName VARCHAR(255) NOT NULL, " +
+                "pesel VARCHAR(255) NOT NULL, " +
+                "sex VARCHAR(255) NOT NULL, " +
+                "classes VARCHAR(255) NOT NULL, " +
+                "address VARCHAR(255)," +
+                "phoneNumber VARCHAR(255), " +
+                "eMail VARCHAR(255), " +
+                "cost INT NOT NULL, " +
+                "payment INT, " +
+                "debt INT," +
+                "PRIMARY KEY (id)" +
+                ");";
+        try {
+            statement = connection.createStatement();
+            statement.execute(createTable);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+    }
+
     @Override
     public void addStudent(Student student) {
         PreparedStatement preparedStatement;
-        String insertQuery = "INSERT INTO " + tableName + " (name, lastName, PESEL, sex, classes, address," +
+        String insertQuery = "INSERT INTO " + tableName + " (name, lastName, pesel, sex, classes, address," +
                 " phoneNumber, eMail, cost, payment, debt)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             preparedStatement = connection.prepareStatement(insertQuery);
@@ -62,7 +89,7 @@ public class StudentDboImpl implements StudentDbo {
     @Override
     public void removeStudentById(int studentId) {
         PreparedStatement preparedStatement;
-        String deleteQuery = "DELETE FROM " + databaseName + " WHERE id=?";
+        String deleteQuery = "DELETE FROM " + tableName + " WHERE id=?;";
         try {
             preparedStatement = connection.prepareStatement(deleteQuery);
             preparedStatement.setInt(1, studentId);

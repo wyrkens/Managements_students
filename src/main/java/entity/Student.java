@@ -24,6 +24,19 @@ public class Student {
     private int payment;
     private int debt;
 
+    public Student(String name, String lastName, String pesel, Sex sex, Classes classes, String address, String phoneNumber, String eMail, int cost, int payment) {
+        this.name = name;
+        this.lastName = lastName;
+        this.pesel = pesel;
+        this.sex = sex;
+        this.classes = classes;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.eMail = eMail;
+        this.cost = cost;
+        this.payment = payment;
+    }
+
     //String name, String lastName, String pesel, Sex sex, Classes classes, String address, String phoneNumber, String eMail, int cost, int payment, int debt
     //name, lastName, pesel, sex, classes, address, phoneNumber, eMail, cost, payment, debt
 

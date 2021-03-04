@@ -44,6 +44,20 @@ public class AccountantFacadeImpl implements AccountantFacade {
     }
 
     @Override
+    public String registerAccountant(Accountant accountant) {
+        try {
+            accountantService.addAccountant(accountant);
+            return "Konto zostało założone.";
+        } catch (AccountantLoginExistException
+                | AccountantLoginToShortException
+                | AccountantPasswordToShortException
+                | StudentNameIsNullException
+                | StudentLastNameIsNullException e) {
+            return e.getMessage();
+        }
+    }
+
+    @Override
     public String removeAccountantById(int accountantId) {
         accountantService.removeAccountantById(accountantId);
         return "Usunięto księgowego.";

@@ -8,6 +8,8 @@ public interface AccountantFacade {
 
     boolean logInAccountant(String login, String password);
 
+    String registerAccountant(Accountant accountant);
+
     String removeAccountantById(int accountantId);
 
     String removeAccountantByLogin(String accountantLogin);

@@ -82,6 +82,5 @@ public class AccountantServiceImpl implements AccountantService {
         boolean isValidLogin = accountant.getLogin().equals(login);
         boolean isValidPassword = accountant.getPassword().equals(password);
         return isValidLogin && isValidPassword;
-
     }
 }
